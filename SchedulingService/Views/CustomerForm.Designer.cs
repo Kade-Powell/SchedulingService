@@ -176,7 +176,7 @@ namespace SchedulingService.Views
             // activeCustomer
             // 
             this.activeCustomer.AutoSize = true;
-            this.activeCustomer.Location = new System.Drawing.Point(234, 111);
+            this.activeCustomer.Location = new System.Drawing.Point(273, 111);
             this.activeCustomer.Name = "activeCustomer";
             this.activeCustomer.Size = new System.Drawing.Size(102, 17);
             this.activeCustomer.TabIndex = 10;
@@ -187,7 +187,7 @@ namespace SchedulingService.Views
             // inactiveCustomer
             // 
             this.inactiveCustomer.AutoSize = true;
-            this.inactiveCustomer.Location = new System.Drawing.Point(355, 111);
+            this.inactiveCustomer.Location = new System.Drawing.Point(437, 111);
             this.inactiveCustomer.Name = "inactiveCustomer";
             this.inactiveCustomer.Size = new System.Drawing.Size(110, 17);
             this.inactiveCustomer.TabIndex = 11;
