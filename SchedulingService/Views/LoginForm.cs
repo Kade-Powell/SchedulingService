@@ -16,5 +16,11 @@ namespace SchedulingService
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+			this.languageSelect.SelectedIndex = 0;
+			this.timeZoneText.Text = TimeZone.CurrentTimeZone.StandardName;
+        }
+    }
 }
