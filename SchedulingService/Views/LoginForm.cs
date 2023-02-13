@@ -7,20 +7,96 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
+using System.Globalization;
+using SchedulingService.Views;
 
 namespace SchedulingService
 {
 	public partial class LoginForm : Form
 	{
-		public LoginForm()
-		{
-			InitializeComponent();
-		}
+        public string errorMessage = "The username and password did not match any records in the database";
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        public LoginForm()
         {
-			this.languageSelect.SelectedIndex = 0;
-			this.timeZoneText.Text = TimeZone.CurrentTimeZone.StandardName;
+            InitializeComponent();
+            timeZoneText.Text = TimeZone.CurrentTimeZone.StandardName;
+            languageSelect.DataSource = new string[2] { "English/Ingles", "Spanish/Espanol"};
+            languageSelect.SelectedItem = "English/Ingles";
+        }
+
+        static public int FindUser(string userName, string password)
+        {
+            MySqlConnection c = new MySqlConnection(Util.connectionString);
+            c.Open();
+            MySqlCommand cmd = new MySqlCommand($"SELECT userId FROM user WHERE userName = '{userName}' AND password = '{password}'", c);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+
+            if (rdr.HasRows)
+            {
+                rdr.Read();
+                Util.setCurrentUserId(Convert.ToInt32(rdr[0]));
+                Util.setCurrentUserName(userName);
+                rdr.Close(); c.Close();
+                return Util.getCurrentUserId();
+            }
+            return 0;
+        }
+
+        
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            if (FindUser(username.Text, password.Text) != 0)
+            {
+                Util.writeUserLoginLog(Util.getCurrentUserId());
+                Program.SetMainForm(new MainForm());
+                Program.ShowMainForm();
+
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(errorMessage);
+                password.Text = "";
+            }
+        }
+
+        private void languageSelect_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if(languageSelect.SelectedValue.ToString() == "English/Ingles")
+            {
+                welcomeLabel.Text = "Welcome to scheduling services, please log-in.";
+                usernameLabel.Text = "Username";
+                passwordLabel.Text = "Password";
+                loginButton.Text = "Login";
+                cancelButton.Text = "Cancel";
+                errorMessage = "The username and password did not match any records in the database.";
+                timeZoneLabel.Text = "Time Zone:";
+                languageLabel.Text = "Language";
+            }
+            else if(languageSelect.SelectedValue.ToString() == "Spanish/Espanol")
+            {
+                welcomeLabel.Text = "Bienvenido a los servicios de programación, inicie sesión.";
+                usernameLabel.Text = "Nombre de usuario";
+                passwordLabel.Text = "Contraseña";
+                loginButton.Text = "Ingrese a su cuenta";
+                cancelButton.Text = "Cancelar";
+                errorMessage = "El nombre de usuario y la contraseña no coincidían con ningún registro en la base de datos.";
+                timeZoneLabel.Text = "Zona Horaria:";
+                languageLabel.Text = "Idioma";
+            }
+            else
+            {
+                MessageBox.Show("Unable to determine Language preference, reverting to english");
+                this.languageSelect.SelectedIndex = 0;
+            }
         }
     }
+
 }
