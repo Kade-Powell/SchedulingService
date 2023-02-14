@@ -10,13 +10,14 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Globalization;
 using SchedulingService.Views;
+using SchedulingService.Models;
 
 namespace SchedulingService
 {
 	public partial class LoginForm : Form
 	{
         public string errorMessage = "The username and password did not match any records in the database";
-
+        public AuthState AuthState = new AuthState();
         public LoginForm()
         {
             InitializeComponent();
@@ -25,9 +26,9 @@ namespace SchedulingService
             languageSelect.SelectedItem = "English/Ingles";
         }
 
-        static public int FindUser(string userName, string password)
+        public int FindUser(string userName, string password)
         {
-            MySqlConnection c = new MySqlConnection(Util.connectionString);
+            MySqlConnection c = new MySqlConnection(AuthState.connectionString);
             c.Open();
             MySqlCommand cmd = new MySqlCommand($"SELECT userId FROM user WHERE userName = '{userName}' AND password = '{password}'", c);
             MySqlDataReader rdr = cmd.ExecuteReader();
@@ -35,10 +36,9 @@ namespace SchedulingService
             if (rdr.HasRows)
             {
                 rdr.Read();
-                Util.setCurrentUserId(Convert.ToInt32(rdr[0]));
-                Util.setCurrentUserName(userName);
+                AuthState.setCurrentUserId(Convert.ToInt32(rdr[0]));
                 rdr.Close(); c.Close();
-                return Util.getCurrentUserId();
+                return AuthState.getCurrentUserId();
             }
             return 0;
         }
@@ -54,8 +54,8 @@ namespace SchedulingService
         {
             if (FindUser(username.Text, password.Text) != 0)
             {
-                Util.writeUserLoginLog(Util.getCurrentUserId());
-                Program.SetMainForm(new MainForm());
+                AuthState.writeUserLog(AuthState.getCurrentUserId());
+                Program.SetMainForm(new MainForm(AuthState.getCurrentUserId()));
                 Program.ShowMainForm();
 
                 this.Close();

@@ -99,7 +99,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\AppState.cs" />
+    <Compile Include="Models\AuthState.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Views\AppointmentForm.cs">
       <SubType>Form</SubType>
