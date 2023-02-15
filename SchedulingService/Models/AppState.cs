@@ -88,6 +88,23 @@ namespace SchedulingService.Models
             rdr.Close();
             c.Close();
         }
+        public (bool, List<string>) checkForUrgentAppointments()
+        {
+            bool hasUrgentAppointment = false;
+            List<string> messages = new List<string>();
+
+            foreach(Appointment appointment in Appointments)
+            {
+                TimeSpan timeFromNow = appointment.start.GetDateTime() - DateTime.Now;
+                if (timeFromNow.TotalMinutes < 15 && timeFromNow.TotalMinutes > -1)
+                {
+                    messages.Add($"Appointment ID: {appointment.appointmentId} with customer ID: {appointment.customerId} starting soon, at {appointment.start}");
+                    hasUrgentAppointment = true;
+                }
+            }
+
+            return (hasUrgentAppointment, messages);
+        }
         public int findCustomerId(string search)
         {
             int customerId;

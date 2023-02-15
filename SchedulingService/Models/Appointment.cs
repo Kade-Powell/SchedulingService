@@ -1,5 +1,6 @@
 ﻿
 
+using MySql.Data.Types;
 using System;
 
 namespace SchedulingService.Models
@@ -15,11 +16,11 @@ namespace SchedulingService.Models
         public string contact { get; set; }
         public string type { get; set; }
         public string url { get; set; }
-        public MySql.Data.Types.MySqlDateTime start { get; set; }
-        public MySql.Data.Types.MySqlDateTime end { get; set; }
-        public MySql.Data.Types.MySqlDateTime createDate { get; set; }
+        public MySqlDateTime start { get; set; }
+        public MySqlDateTime end { get; set; }
+        public MySqlDateTime createDate { get; set; }
         public string createBy { get; set; }
-        public MySql.Data.Types.MySqlDateTime lastUpdate { get; set; }
+        public MySqlDateTime lastUpdate { get; set; }
         public string lastUpdateBy { get; set; }
 
         public Appointment(
@@ -32,11 +33,11 @@ namespace SchedulingService.Models
             string contact,
             string type,
             string url,
-            MySql.Data.Types.MySqlDateTime start,
-            MySql.Data.Types.MySqlDateTime end,
-            MySql.Data.Types.MySqlDateTime createDate,
+            MySqlDateTime start,
+            MySqlDateTime end,
+            MySqlDateTime createDate,
             string createBy,
-            MySql.Data.Types.MySqlDateTime lastUpdate,
+            MySqlDateTime lastUpdate,
             string lastUpdateBy
             )
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,9 @@ namespace SchedulingService.Models
         public string customerName { get; set; }
         public int addressId { get; set; }
         public int active { get; set; }
-        public MySql.Data.Types.MySqlDateTime createDate { get; set; }
+        public MySqlDateTime createDate { get; set; }
         public string createdBy { get; set; }
-        public MySql.Data.Types.MySqlDateTime lastUpdate { get; set; }
+        public MySqlDateTime lastUpdate { get; set; }
         public string lastUpdateBy { get; set; }
 
         public Customer(
@@ -22,9 +23,9 @@ namespace SchedulingService.Models
             string customerName,
             int addressId,
             int active,
-            MySql.Data.Types.MySqlDateTime createDate,
+            MySqlDateTime createDate,
             string createdBy,
-            MySql.Data.Types.MySqlDateTime lastUpdate,
+            MySqlDateTime lastUpdate,
             string lastUpdateBy
             )
         {

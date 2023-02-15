@@ -38,9 +38,9 @@ namespace SchedulingService.Views
             this.appointmentDataGridView = new System.Windows.Forms.DataGridView();
             this.customerTab = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.deleteCustomerButton = new System.Windows.Forms.Button();
+            this.modifyCustomerButton = new System.Windows.Forms.Button();
+            this.addCustomerButton = new System.Windows.Forms.Button();
             this.customerDataGridView = new System.Windows.Forms.DataGridView();
             this.monthCalendarView = new System.Windows.Forms.TabPage();
             this.addAppointmentMonthButton = new System.Windows.Forms.Button();
@@ -115,6 +115,7 @@ namespace SchedulingService.Views
             this.deleteAppointmentButton.TabIndex = 5;
             this.deleteAppointmentButton.Text = "Delete";
             this.deleteAppointmentButton.UseVisualStyleBackColor = true;
+            this.deleteAppointmentButton.Click += new System.EventHandler(this.deleteAppointmentButton_Click);
             // 
             // modifyAppointmentButton
             // 
@@ -125,6 +126,7 @@ namespace SchedulingService.Views
             this.modifyAppointmentButton.TabIndex = 4;
             this.modifyAppointmentButton.Text = "Modify";
             this.modifyAppointmentButton.UseVisualStyleBackColor = true;
+            this.modifyAppointmentButton.Click += new System.EventHandler(this.modifyAppointmentButton_Click);
             // 
             // addAppointmentButton
             // 
@@ -135,6 +137,7 @@ namespace SchedulingService.Views
             this.addAppointmentButton.TabIndex = 3;
             this.addAppointmentButton.Text = "Add";
             this.addAppointmentButton.UseVisualStyleBackColor = true;
+            this.addAppointmentButton.Click += new System.EventHandler(this.addAppointmentButton_Click);
             // 
             // appointmentDataGridView
             // 
@@ -144,6 +147,7 @@ namespace SchedulingService.Views
             this.appointmentDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.appointmentDataGridView.Location = new System.Drawing.Point(8, 53);
             this.appointmentDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.appointmentDataGridView.MultiSelect = false;
             this.appointmentDataGridView.Name = "appointmentDataGridView";
             this.appointmentDataGridView.ReadOnly = true;
             this.appointmentDataGridView.RowHeadersWidth = 51;
@@ -154,9 +158,9 @@ namespace SchedulingService.Views
             // customerTab
             // 
             this.customerTab.Controls.Add(this.label1);
-            this.customerTab.Controls.Add(this.button1);
-            this.customerTab.Controls.Add(this.button2);
-            this.customerTab.Controls.Add(this.button3);
+            this.customerTab.Controls.Add(this.deleteCustomerButton);
+            this.customerTab.Controls.Add(this.modifyCustomerButton);
+            this.customerTab.Controls.Add(this.addCustomerButton);
             this.customerTab.Controls.Add(this.customerDataGridView);
             this.customerTab.Location = new System.Drawing.Point(4, 25);
             this.customerTab.Margin = new System.Windows.Forms.Padding(4);
@@ -177,35 +181,38 @@ namespace SchedulingService.Views
             this.label1.TabIndex = 10;
             this.label1.Text = "Manage Customers";
             // 
-            // button1
+            // deleteCustomerButton
             // 
-            this.button1.Location = new System.Drawing.Point(1471, 510);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(187, 28);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Delete";
-            this.button1.UseVisualStyleBackColor = true;
+            this.deleteCustomerButton.Location = new System.Drawing.Point(1471, 510);
+            this.deleteCustomerButton.Margin = new System.Windows.Forms.Padding(4);
+            this.deleteCustomerButton.Name = "deleteCustomerButton";
+            this.deleteCustomerButton.Size = new System.Drawing.Size(187, 28);
+            this.deleteCustomerButton.TabIndex = 9;
+            this.deleteCustomerButton.Text = "Delete";
+            this.deleteCustomerButton.UseVisualStyleBackColor = true;
+            this.deleteCustomerButton.Click += new System.EventHandler(this.deleteCustomerButton_Click);
             // 
-            // button2
+            // modifyCustomerButton
             // 
-            this.button2.Location = new System.Drawing.Point(756, 510);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(187, 28);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Modify";
-            this.button2.UseVisualStyleBackColor = true;
+            this.modifyCustomerButton.Location = new System.Drawing.Point(756, 510);
+            this.modifyCustomerButton.Margin = new System.Windows.Forms.Padding(4);
+            this.modifyCustomerButton.Name = "modifyCustomerButton";
+            this.modifyCustomerButton.Size = new System.Drawing.Size(187, 28);
+            this.modifyCustomerButton.TabIndex = 8;
+            this.modifyCustomerButton.Text = "Modify";
+            this.modifyCustomerButton.UseVisualStyleBackColor = true;
+            this.modifyCustomerButton.Click += new System.EventHandler(this.modifyCustomerButton_Click);
             // 
-            // button3
+            // addCustomerButton
             // 
-            this.button3.Location = new System.Drawing.Point(8, 510);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(187, 28);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Add";
-            this.button3.UseVisualStyleBackColor = true;
+            this.addCustomerButton.Location = new System.Drawing.Point(8, 510);
+            this.addCustomerButton.Margin = new System.Windows.Forms.Padding(4);
+            this.addCustomerButton.Name = "addCustomerButton";
+            this.addCustomerButton.Size = new System.Drawing.Size(187, 28);
+            this.addCustomerButton.TabIndex = 7;
+            this.addCustomerButton.Text = "Add";
+            this.addCustomerButton.UseVisualStyleBackColor = true;
+            this.addCustomerButton.Click += new System.EventHandler(this.addCustomerButton_Click);
             // 
             // customerDataGridView
             // 
@@ -215,6 +222,7 @@ namespace SchedulingService.Views
             this.customerDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.customerDataGridView.Location = new System.Drawing.Point(8, 53);
             this.customerDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.customerDataGridView.MultiSelect = false;
             this.customerDataGridView.Name = "customerDataGridView";
             this.customerDataGridView.ReadOnly = true;
             this.customerDataGridView.RowHeadersWidth = 51;
@@ -247,6 +255,7 @@ namespace SchedulingService.Views
             this.addAppointmentMonthButton.TabIndex = 8;
             this.addAppointmentMonthButton.Text = "Add";
             this.addAppointmentMonthButton.UseVisualStyleBackColor = true;
+            this.addAppointmentMonthButton.Click += new System.EventHandler(this.addAppointmentMonthButton_Click);
             // 
             // monthViewLabel
             // 
@@ -267,6 +276,7 @@ namespace SchedulingService.Views
             this.deleteAppointmentMonthButton.TabIndex = 10;
             this.deleteAppointmentMonthButton.Text = "Delete";
             this.deleteAppointmentMonthButton.UseVisualStyleBackColor = true;
+            this.deleteAppointmentMonthButton.Click += new System.EventHandler(this.deleteAppointmentMonthButton_Click);
             // 
             // modifyAppointmentMonthButton
             // 
@@ -277,6 +287,7 @@ namespace SchedulingService.Views
             this.modifyAppointmentMonthButton.TabIndex = 9;
             this.modifyAppointmentMonthButton.Text = "Modify";
             this.modifyAppointmentMonthButton.UseVisualStyleBackColor = true;
+            this.modifyAppointmentMonthButton.Click += new System.EventHandler(this.modifyAppointmentMonthButton_Click);
             // 
             // monthlyCalendarDataGridView
             // 
@@ -286,6 +297,7 @@ namespace SchedulingService.Views
             this.monthlyCalendarDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.monthlyCalendarDataGridView.Location = new System.Drawing.Point(8, 53);
             this.monthlyCalendarDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.monthlyCalendarDataGridView.MultiSelect = false;
             this.monthlyCalendarDataGridView.Name = "monthlyCalendarDataGridView";
             this.monthlyCalendarDataGridView.ReadOnly = true;
             this.monthlyCalendarDataGridView.RowHeadersWidth = 51;
@@ -328,6 +340,7 @@ namespace SchedulingService.Views
             this.modifyAppointmentWeekButton.TabIndex = 10;
             this.modifyAppointmentWeekButton.Text = "Modify";
             this.modifyAppointmentWeekButton.UseVisualStyleBackColor = true;
+            this.modifyAppointmentWeekButton.Click += new System.EventHandler(this.modifyAppointmentWeekButton_Click);
             // 
             // addAppointmentWeekButton
             // 
@@ -338,6 +351,7 @@ namespace SchedulingService.Views
             this.addAppointmentWeekButton.TabIndex = 9;
             this.addAppointmentWeekButton.Text = "Add";
             this.addAppointmentWeekButton.UseVisualStyleBackColor = true;
+            this.addAppointmentWeekButton.Click += new System.EventHandler(this.addAppointmentWeekButton_Click);
             // 
             // weekViewLabel
             // 
@@ -357,6 +371,7 @@ namespace SchedulingService.Views
             this.weeklyCalendarDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.weeklyCalendarDataGridView.Location = new System.Drawing.Point(8, 53);
             this.weeklyCalendarDataGridView.Margin = new System.Windows.Forms.Padding(4);
+            this.weeklyCalendarDataGridView.MultiSelect = false;
             this.weeklyCalendarDataGridView.Name = "weeklyCalendarDataGridView";
             this.weeklyCalendarDataGridView.ReadOnly = true;
             this.weeklyCalendarDataGridView.RowHeadersWidth = 51;
@@ -377,6 +392,7 @@ namespace SchedulingService.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1706, 601);
             this.Controls.Add(this.calendarLabel);
             this.Controls.Add(this.weeklyCalendarDataGrid);
@@ -414,9 +430,9 @@ namespace SchedulingService.Views
 		private System.Windows.Forms.Label calendarLabel;
 		private System.Windows.Forms.Label appointmentLabel;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Button deleteCustomerButton;
+		private System.Windows.Forms.Button modifyCustomerButton;
+		private System.Windows.Forms.Button addCustomerButton;
 		private System.Windows.Forms.DataGridView customerDataGridView;
         private System.Windows.Forms.TabPage monthCalendarView;
         private System.Windows.Forms.TabPage weekCalendarView;
