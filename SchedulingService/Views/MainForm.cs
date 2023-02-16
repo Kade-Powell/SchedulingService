@@ -17,11 +17,11 @@ namespace SchedulingService.Views
 		private BindingList<Appointment> MonthlyDataSource = new BindingList<Appointment>();
 		private BindingList<Appointment> WeeklyDataSource = new BindingList<Appointment>();
 
-		public MainForm(int UserId)
+		public MainForm(int UserId, string userName)
 		{
 			InitializeComponent();
 			//init app state
-			State = new AppState(UserId);
+			State = new AppState(UserId, userName);
 			appointmentDataGridView.DataSource = State.Appointments;
 			customerDataGridView.DataSource = State.Customers;
 			monthlyCalendarDataGridView.DataSource = MonthlyDataSource;
@@ -67,7 +67,7 @@ namespace SchedulingService.Views
 			{
 				foreach(DateTime day in currentWeek)
                 {
-					if (appointment.start.GetDateTime().Date == day.Date)
+					if (appointment.start.Date == day.Date)
 					{
 						if (!WeeklyDataSource.Contains(appointment)) { WeeklyDataSource.Add(appointment); }
 					}
@@ -77,30 +77,37 @@ namespace SchedulingService.Views
 
         private void addAppointmentButton_Click(object sender, EventArgs e)
         {
-			AppointmentForm appointmentForm = new AppointmentForm();
+			AppointmentForm appointmentForm = new AppointmentForm(State);
+			appointmentForm.StartPosition = FormStartPosition.CenterParent;
 			appointmentForm.ShowDialog();
 		}
 
         private void modifyAppointmentButton_Click(object sender, EventArgs e)
         {
-			AppointmentForm appointmentForm = new AppointmentForm();
+			Appointment currentAppointment = (Appointment)appointmentDataGridView.CurrentRow.DataBoundItem;
+			AppointmentForm appointmentForm = new AppointmentForm(State, modifyMode: true, appointment: currentAppointment);
+
+			appointmentForm.StartPosition = FormStartPosition.CenterParent;
 			appointmentForm.ShowDialog();
 		}
 
         private void deleteAppointmentButton_Click(object sender, EventArgs e)
         {
-			//get current row's appointment and remove from DB AND Sync State!
-        }
+			Appointment currentAppointment = (Appointment)appointmentDataGridView.CurrentRow.DataBoundItem;
+			State.deleteAppointment(currentAppointment);
+		}
 
         private void addCustomerButton_Click(object sender, EventArgs e)
         {
 			CustomerForm customerForm = new CustomerForm();
+			customerForm.StartPosition = FormStartPosition.CenterParent;
 			customerForm.ShowDialog();
         }
 
         private void modifyCustomerButton_Click(object sender, EventArgs e)
         {
 			CustomerForm customerForm = new CustomerForm();
+			customerForm.StartPosition = FormStartPosition.CenterParent;
 			customerForm.ShowDialog();
 		}
 
@@ -111,13 +118,15 @@ namespace SchedulingService.Views
 
         private void addAppointmentMonthButton_Click(object sender, EventArgs e)
         {
-			AppointmentForm appointmentForm = new AppointmentForm();
+			AppointmentForm appointmentForm = new AppointmentForm(State);
+			appointmentForm.StartPosition = FormStartPosition.CenterParent;
 			appointmentForm.ShowDialog();
 		}
 
         private void modifyAppointmentMonthButton_Click(object sender, EventArgs e)
         {
-			AppointmentForm appointmentForm = new AppointmentForm();
+			AppointmentForm appointmentForm = new AppointmentForm(State);
+			appointmentForm.StartPosition = FormStartPosition.CenterParent;
 			appointmentForm.ShowDialog();
 		}
 
@@ -128,13 +137,15 @@ namespace SchedulingService.Views
 
         private void addAppointmentWeekButton_Click(object sender, EventArgs e)
         {
-			AppointmentForm appointmentForm = new AppointmentForm();
+			AppointmentForm appointmentForm = new AppointmentForm(State);
+			appointmentForm.StartPosition = FormStartPosition.CenterParent;
 			appointmentForm.ShowDialog();
 		}
 
         private void modifyAppointmentWeekButton_Click(object sender, EventArgs e)
         {
-			AppointmentForm appointmentForm = new AppointmentForm();
+			AppointmentForm appointmentForm = new AppointmentForm(State);
+			appointmentForm.StartPosition = FormStartPosition.CenterParent;
 			appointmentForm.ShowDialog();
 		}
 
@@ -142,5 +153,17 @@ namespace SchedulingService.Views
         {
 			//get current row's customer and remove from DB AND Sync State!
 		}
-	}
+
+        private void closeMain_Click(object sender, EventArgs e)
+        {
+			Close();
+        }
+
+        private void reportAppointmentTypesByMonthButton_Click(object sender, EventArgs e)
+        {
+			ReportsForm reportsForm = new ReportsForm(State);
+			reportsForm.StartPosition = FormStartPosition.CenterParent;
+			reportsForm.ShowDialog();
+		}
+    }
 }

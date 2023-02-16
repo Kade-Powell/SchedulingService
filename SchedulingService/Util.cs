@@ -17,14 +17,6 @@ namespace SchedulingService
             return DateTime.Now.ToString("u");
         }
 
-        public static string convertToTimezone(string dateTime)
-        {
-            DateTime utcDateTime = DateTime.Parse(dateTime.ToString());
-            DateTime localDateTime = utcDateTime.ToLocalTime();
-
-            return localDateTime.ToString("MM/dd/yyyy hh:mm tt");
-        }
-
         public static IEnumerable<DateTime> Daily(this TimeSpan ts, DayOfWeek startDayOfWeek = DayOfWeek.Sunday, DateTime? checkDay = null)
         {
             var compDate = checkDay ?? DateTime.UtcNow;

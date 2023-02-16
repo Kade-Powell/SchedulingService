@@ -55,7 +55,7 @@ namespace SchedulingService
             if (FindUser(username.Text, password.Text) != 0)
             {
                 AuthState.writeUserLog(AuthState.getCurrentUserId());
-                Program.SetMainForm(new MainForm(AuthState.getCurrentUserId()));
+                Program.SetMainForm(new MainForm(AuthState.getCurrentUserId(), this.username.Text));
                 Program.ShowMainForm();
 
                 this.Close();

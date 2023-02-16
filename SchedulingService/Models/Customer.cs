@@ -13,9 +13,9 @@ namespace SchedulingService.Models
         public string customerName { get; set; }
         public int addressId { get; set; }
         public int active { get; set; }
-        public MySqlDateTime createDate { get; set; }
+        public DateTime createDate { get; set; }
         public string createdBy { get; set; }
-        public MySqlDateTime lastUpdate { get; set; }
+        public DateTime lastUpdate { get; set; }
         public string lastUpdateBy { get; set; }
 
         public Customer(
@@ -23,9 +23,9 @@ namespace SchedulingService.Models
             string customerName,
             int addressId,
             int active,
-            MySqlDateTime createDate,
+            DateTime createDate,
             string createdBy,
-            MySqlDateTime lastUpdate,
+            DateTime lastUpdate,
             string lastUpdateBy
             )
         {

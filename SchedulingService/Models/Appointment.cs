@@ -16,11 +16,11 @@ namespace SchedulingService.Models
         public string contact { get; set; }
         public string type { get; set; }
         public string url { get; set; }
-        public MySqlDateTime start { get; set; }
-        public MySqlDateTime end { get; set; }
-        public MySqlDateTime createDate { get; set; }
-        public string createBy { get; set; }
-        public MySqlDateTime lastUpdate { get; set; }
+        public DateTime start { get; set; }
+        public DateTime end { get; set; }
+        public DateTime createDate { get; set; }
+        public string createdBy { get; set; }
+        public DateTime lastUpdate { get; set; }
         public string lastUpdateBy { get; set; }
 
         public Appointment(
@@ -33,11 +33,11 @@ namespace SchedulingService.Models
             string contact,
             string type,
             string url,
-            MySqlDateTime start,
-            MySqlDateTime end,
-            MySqlDateTime createDate,
-            string createBy,
-            MySqlDateTime lastUpdate,
+            DateTime start,
+            DateTime end,
+            DateTime createDate,
+            string createdBy,
+            DateTime lastUpdate,
             string lastUpdateBy
             )
         {
@@ -53,7 +53,7 @@ namespace SchedulingService.Models
             this.start = start;
             this.end = end;
             this.createDate = createDate;
-            this.createBy = createBy;
+            this.createdBy = createdBy;
             this.lastUpdate = lastUpdate;
             this.lastUpdateBy = lastUpdateBy;
         }

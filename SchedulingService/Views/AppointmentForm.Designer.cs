@@ -38,7 +38,7 @@ namespace SchedulingService.Views
             this.locationLabel = new System.Windows.Forms.Label();
             this.startLabel = new System.Windows.Forms.Label();
             this.endLabel = new System.Windows.Forms.Label();
-            this.customer = new System.Windows.Forms.ComboBox();
+            this.customerId = new System.Windows.Forms.ComboBox();
             this.title = new System.Windows.Forms.TextBox();
             this.description = new System.Windows.Forms.TextBox();
             this.location = new System.Windows.Forms.TextBox();
@@ -48,6 +48,8 @@ namespace SchedulingService.Views
             this.end = new System.Windows.Forms.DateTimePicker();
             this.saveButton = new System.Windows.Forms.Button();
             this.closeButton = new System.Windows.Forms.Button();
+            this.contactLabel = new System.Windows.Forms.Label();
+            this.contact = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // appointPageLabel
@@ -66,7 +68,7 @@ namespace SchedulingService.Views
             this.customerLabel.Location = new System.Drawing.Point(220, 151);
             this.customerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.customerLabel.Name = "customerLabel";
-            this.customerLabel.Size = new System.Drawing.Size(85, 21);
+            this.customerLabel.Size = new System.Drawing.Size(68, 17);
             this.customerLabel.TabIndex = 1;
             this.customerLabel.Text = "Customer";
             // 
@@ -76,7 +78,7 @@ namespace SchedulingService.Views
             this.titleLabel.Location = new System.Drawing.Point(220, 186);
             this.titleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(148, 21);
+            this.titleLabel.Size = new System.Drawing.Size(118, 17);
             this.titleLabel.TabIndex = 2;
             this.titleLabel.Text = "Appointment Title";
             // 
@@ -86,7 +88,7 @@ namespace SchedulingService.Views
             this.descriptionLabel.Location = new System.Drawing.Point(220, 221);
             this.descriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(99, 21);
+            this.descriptionLabel.Size = new System.Drawing.Size(79, 17);
             this.descriptionLabel.TabIndex = 3;
             this.descriptionLabel.Text = "Description";
             // 
@@ -116,7 +118,7 @@ namespace SchedulingService.Views
             this.locationLabel.Location = new System.Drawing.Point(220, 257);
             this.locationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.locationLabel.Name = "locationLabel";
-            this.locationLabel.Size = new System.Drawing.Size(78, 21);
+            this.locationLabel.Size = new System.Drawing.Size(62, 17);
             this.locationLabel.TabIndex = 6;
             this.locationLabel.Text = "Location";
             // 
@@ -126,7 +128,7 @@ namespace SchedulingService.Views
             this.startLabel.Location = new System.Drawing.Point(220, 370);
             this.startLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.startLabel.Name = "startLabel";
-            this.startLabel.Size = new System.Drawing.Size(91, 21);
+            this.startLabel.Size = new System.Drawing.Size(73, 17);
             this.startLabel.TabIndex = 7;
             this.startLabel.Text = "Start Time";
             // 
@@ -140,13 +142,13 @@ namespace SchedulingService.Views
             this.endLabel.TabIndex = 8;
             this.endLabel.Text = "End Time";
             // 
-            // customer
+            // customerId
             // 
-            this.customer.FormattingEnabled = true;
-            this.customer.Location = new System.Drawing.Point(403, 148);
-            this.customer.Name = "customer";
-            this.customer.Size = new System.Drawing.Size(178, 24);
-            this.customer.TabIndex = 9;
+            this.customerId.FormattingEnabled = true;
+            this.customerId.Location = new System.Drawing.Point(403, 148);
+            this.customerId.Name = "customerId";
+            this.customerId.Size = new System.Drawing.Size(178, 24);
+            this.customerId.TabIndex = 9;
             // 
             // title
             // 
@@ -185,16 +187,18 @@ namespace SchedulingService.Views
             // 
             // start
             // 
+            this.start.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.start.Location = new System.Drawing.Point(403, 370);
             this.start.Name = "start";
-            this.start.Size = new System.Drawing.Size(200, 22);
+            this.start.Size = new System.Drawing.Size(178, 22);
             this.start.TabIndex = 15;
             // 
             // end
             // 
+            this.end.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.end.Location = new System.Drawing.Point(757, 365);
             this.end.Name = "end";
-            this.end.Size = new System.Drawing.Size(200, 22);
+            this.end.Size = new System.Drawing.Size(178, 22);
             this.end.TabIndex = 16;
             // 
             // saveButton
@@ -205,6 +209,7 @@ namespace SchedulingService.Views
             this.saveButton.TabIndex = 17;
             this.saveButton.Text = "Save";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // closeButton
             // 
@@ -214,12 +219,32 @@ namespace SchedulingService.Views
             this.closeButton.TabIndex = 18;
             this.closeButton.Text = "Close";
             this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // contactLabel
+            // 
+            this.contactLabel.AutoSize = true;
+            this.contactLabel.Location = new System.Drawing.Point(643, 296);
+            this.contactLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.contactLabel.Name = "contactLabel";
+            this.contactLabel.Size = new System.Drawing.Size(56, 17);
+            this.contactLabel.TabIndex = 19;
+            this.contactLabel.Text = "Contact";
+            // 
+            // contact
+            // 
+            this.contact.Location = new System.Drawing.Point(757, 296);
+            this.contact.Name = "contact";
+            this.contact.Size = new System.Drawing.Size(178, 22);
+            this.contact.TabIndex = 20;
             // 
             // AppointmentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.Controls.Add(this.contact);
+            this.Controls.Add(this.contactLabel);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.end);
@@ -229,7 +254,7 @@ namespace SchedulingService.Views
             this.Controls.Add(this.location);
             this.Controls.Add(this.description);
             this.Controls.Add(this.title);
-            this.Controls.Add(this.customer);
+            this.Controls.Add(this.customerId);
             this.Controls.Add(this.endLabel);
             this.Controls.Add(this.startLabel);
             this.Controls.Add(this.locationLabel);
@@ -239,7 +264,7 @@ namespace SchedulingService.Views
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.customerLabel);
             this.Controls.Add(this.appointPageLabel);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AppointmentForm";
             this.Text = "AppointmentForm";
             this.ResumeLayout(false);
@@ -258,7 +283,7 @@ namespace SchedulingService.Views
         private System.Windows.Forms.Label locationLabel;
         private System.Windows.Forms.Label startLabel;
         private System.Windows.Forms.Label endLabel;
-        private System.Windows.Forms.ComboBox customer;
+        private System.Windows.Forms.ComboBox customerId;
         private System.Windows.Forms.TextBox title;
         private System.Windows.Forms.TextBox description;
         private System.Windows.Forms.TextBox location;
@@ -268,5 +293,7 @@ namespace SchedulingService.Views
         private System.Windows.Forms.DateTimePicker end;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button closeButton;
+        private System.Windows.Forms.Label contactLabel;
+        private System.Windows.Forms.TextBox contact;
     }
 }

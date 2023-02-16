@@ -55,6 +55,9 @@ namespace SchedulingService.Views
             this.weekViewLabel = new System.Windows.Forms.Label();
             this.weeklyCalendarDataGridView = new System.Windows.Forms.DataGridView();
             this.calendarLabel = new System.Windows.Forms.Label();
+            this.closeMain = new System.Windows.Forms.Button();
+            this.reportAppointmentTypesByMonthButton = new System.Windows.Forms.Button();
+            this.reportGroupBox = new System.Windows.Forms.GroupBox();
             this.weeklyCalendarDataGrid.SuspendLayout();
             this.appointmentTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDataGridView)).BeginInit();
@@ -64,6 +67,7 @@ namespace SchedulingService.Views
             ((System.ComponentModel.ISupportInitialize)(this.monthlyCalendarDataGridView)).BeginInit();
             this.weekCalendarView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.weeklyCalendarDataGridView)).BeginInit();
+            this.reportGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // weeklyCalendarDataGrid
@@ -388,12 +392,44 @@ namespace SchedulingService.Views
             this.calendarLabel.Size = new System.Drawing.Size(0, 17);
             this.calendarLabel.TabIndex = 2;
             // 
+            // closeMain
+            // 
+            this.closeMain.Location = new System.Drawing.Point(1590, 785);
+            this.closeMain.Name = "closeMain";
+            this.closeMain.Size = new System.Drawing.Size(104, 33);
+            this.closeMain.TabIndex = 3;
+            this.closeMain.Text = "Close";
+            this.closeMain.UseVisualStyleBackColor = true;
+            this.closeMain.Click += new System.EventHandler(this.closeMain_Click);
+            // 
+            // reportAppointmentTypesByMonthButton
+            // 
+            this.reportAppointmentTypesByMonthButton.Location = new System.Drawing.Point(90, 38);
+            this.reportAppointmentTypesByMonthButton.Name = "reportAppointmentTypesByMonthButton";
+            this.reportAppointmentTypesByMonthButton.Size = new System.Drawing.Size(265, 36);
+            this.reportAppointmentTypesByMonthButton.TabIndex = 4;
+            this.reportAppointmentTypesByMonthButton.Text = "View Appointment Types By Month";
+            this.reportAppointmentTypesByMonthButton.UseVisualStyleBackColor = true;
+            this.reportAppointmentTypesByMonthButton.Click += new System.EventHandler(this.reportAppointmentTypesByMonthButton_Click);
+            // 
+            // reportGroupBox
+            // 
+            this.reportGroupBox.Controls.Add(this.reportAppointmentTypesByMonthButton);
+            this.reportGroupBox.Location = new System.Drawing.Point(219, 634);
+            this.reportGroupBox.Name = "reportGroupBox";
+            this.reportGroupBox.Size = new System.Drawing.Size(1272, 100);
+            this.reportGroupBox.TabIndex = 5;
+            this.reportGroupBox.TabStop = false;
+            this.reportGroupBox.Text = "Reports";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1706, 601);
+            this.ClientSize = new System.Drawing.Size(1706, 830);
+            this.Controls.Add(this.reportGroupBox);
+            this.Controls.Add(this.closeMain);
             this.Controls.Add(this.calendarLabel);
             this.Controls.Add(this.weeklyCalendarDataGrid);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -412,6 +448,7 @@ namespace SchedulingService.Views
             this.weekCalendarView.ResumeLayout(false);
             this.weekCalendarView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.weeklyCalendarDataGridView)).EndInit();
+            this.reportGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -445,5 +482,8 @@ namespace SchedulingService.Views
         private System.Windows.Forms.Button deleteAppointmentWeekButton;
         private System.Windows.Forms.Button modifyAppointmentWeekButton;
         private System.Windows.Forms.Button addAppointmentWeekButton;
+        private System.Windows.Forms.Button closeMain;
+        private System.Windows.Forms.Button reportAppointmentTypesByMonthButton;
+        private System.Windows.Forms.GroupBox reportGroupBox;
     }
 }
