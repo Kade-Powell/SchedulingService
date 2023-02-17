@@ -136,5 +136,12 @@ namespace SchedulingService.Views
 			scheduleReport.StartPosition = FormStartPosition.CenterParent;
 			scheduleReport.ShowDialog();
 		}
+
+        private void newCustomerThisMonthButton_Click(object sender, EventArgs e)
+        {
+			NewCustomersThisMonthForm nctmForm = new NewCustomersThisMonthForm();
+			nctmForm.StartPosition = FormStartPosition.CenterParent;
+			nctmForm.ShowDialog();
+		}
     }
 }

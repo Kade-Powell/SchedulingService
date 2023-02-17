@@ -37,6 +37,9 @@ namespace SchedulingService.Views
             // 
             // userScheduleDataGrid
             // 
+            this.userScheduleDataGrid.AllowUserToAddRows = false;
+            this.userScheduleDataGrid.AllowUserToDeleteRows = false;
+            this.userScheduleDataGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.userScheduleDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.userScheduleDataGrid.Location = new System.Drawing.Point(12, 75);
             this.userScheduleDataGrid.Name = "userScheduleDataGrid";
@@ -68,7 +71,7 @@ namespace SchedulingService.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1176, 450);
+            this.ClientSize = new System.Drawing.Size(1177, 450);
             this.Controls.Add(this.userComboBox);
             this.Controls.Add(this.UserScheduleLabel);
             this.Controls.Add(this.userScheduleDataGrid);

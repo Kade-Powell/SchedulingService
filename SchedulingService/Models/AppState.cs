@@ -10,6 +10,7 @@ namespace SchedulingService.Models
 {
     public class AppState
     {
+        public BindingList<Appointment> AllUsersAppointments = new BindingList<Appointment>();
         public BindingList<Appointment> Appointments = new BindingList<Appointment>();
         public BindingList<Appointment> WeeklyAppointments = new BindingList<Appointment>();
         public BindingList<Appointment> MonthlyAppointments = new BindingList<Appointment>();
@@ -30,19 +31,18 @@ namespace SchedulingService.Models
         public void loadUserAppointments()
         {
             //reset state
-            Appointments.Clear();
+            AllUsersAppointments.Clear();
             //get all appointments for current user
-            string query = $"SELECT * FROM client_schedule.appointment WHERE userId = {currentUserId}";
+            string query = $"SELECT * FROM client_schedule.appointment";
             MySqlConnection c = new MySqlConnection(connectionString);
             c.Open();
             MySqlCommand cmd = new MySqlCommand(query, c);
             MySqlDataReader rdr = cmd.ExecuteReader();
             if (rdr.HasRows)
             {
-                
                 while (rdr.Read())
                 {
-                    Appointments.Add(new Appointment(
+                    AllUsersAppointments.Add(new Appointment(
                         appointmentId: Convert.ToInt32(rdr.GetValue(0)),
                         customerId: Convert.ToInt32(rdr.GetValue(1)),
                         userId: Convert.ToInt32(rdr.GetValue(2)),
@@ -64,8 +64,20 @@ namespace SchedulingService.Models
             }
             rdr.Close();
             c.Close();
+            calculateUsersAppointments();
             calculateMonthly();
             calculateWeekly();
+        }
+        private void calculateUsersAppointments()
+        {
+            Appointments.Clear();
+            foreach (var app in AllUsersAppointments)
+            {
+                if (app.userId == currentUserId)
+                {
+                    Appointments.Add(app);
+                }
+            }
         }
         private void calculateMonthly()
         {
@@ -78,7 +90,6 @@ namespace SchedulingService.Models
                 }
             }
         }
-
         private void calculateWeekly()
         {
             WeeklyAppointments.Clear();
@@ -185,7 +196,7 @@ namespace SchedulingService.Models
         public int nextAppointmentId()
         {
             int highestId = 0;
-            foreach (Appointment appointment in Appointments)
+            foreach (Appointment appointment in AllUsersAppointments)
             {
                 if (appointment.appointmentId > highestId)
                 {

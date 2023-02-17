@@ -140,6 +140,12 @@
     <Compile Include="Views\AppByMonthForm.Designer.cs">
       <DependentUpon>AppByMonthForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\NewCustomersThisMonthForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\NewCustomersThisMonthForm.Designer.cs">
+      <DependentUpon>NewCustomersThisMonthForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserScheduleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\AppByMonthForm.resx">
       <DependentUpon>AppByMonthForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NewCustomersThisMonthForm.resx">
+      <DependentUpon>NewCustomersThisMonthForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserScheduleForm.resx">
       <DependentUpon>UserScheduleForm.cs</DependentUpon>

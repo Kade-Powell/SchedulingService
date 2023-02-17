@@ -31,6 +31,7 @@ namespace SchedulingService.Views
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.numberOfAppointmentByMonthTable = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.appByMonthFormLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numberOfAppointmentByMonthTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,21 +46,33 @@ namespace SchedulingService.Views
             this.numberOfAppointmentByMonthTable.TabStop = false;
             this.numberOfAppointmentByMonthTable.Text = "chart1";
             // 
+            // appByMonthFormLabel
+            // 
+            this.appByMonthFormLabel.AutoSize = true;
+            this.appByMonthFormLabel.Location = new System.Drawing.Point(51, 26);
+            this.appByMonthFormLabel.Name = "appByMonthFormLabel";
+            this.appByMonthFormLabel.Size = new System.Drawing.Size(241, 21);
+            this.appByMonthFormLabel.TabIndex = 1;
+            this.appByMonthFormLabel.Text = "Appointment Types By Month";
+            // 
             // AppByMonthForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1362, 450);
+            this.Controls.Add(this.appByMonthFormLabel);
             this.Controls.Add(this.numberOfAppointmentByMonthTable);
             this.Name = "AppByMonthForm";
             this.Text = "ReportsForm";
             ((System.ComponentModel.ISupportInitialize)(this.numberOfAppointmentByMonthTable)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.DataVisualization.Charting.Chart numberOfAppointmentByMonthTable;
+        private System.Windows.Forms.Label appByMonthFormLabel;
     }
 }

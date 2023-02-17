@@ -59,6 +59,7 @@ namespace SchedulingService.Views
             this.reportAppointmentTypesByMonthButton = new System.Windows.Forms.Button();
             this.reportGroupBox = new System.Windows.Forms.GroupBox();
             this.viewScheduleForUsers = new System.Windows.Forms.Button();
+            this.newCustomerThisMonthButton = new System.Windows.Forms.Button();
             this.weeklyCalendarDataGrid.SuspendLayout();
             this.appointmentTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDataGridView)).BeginInit();
@@ -405,7 +406,7 @@ namespace SchedulingService.Views
             // 
             // reportAppointmentTypesByMonthButton
             // 
-            this.reportAppointmentTypesByMonthButton.Location = new System.Drawing.Point(90, 38);
+            this.reportAppointmentTypesByMonthButton.Location = new System.Drawing.Point(6, 38);
             this.reportAppointmentTypesByMonthButton.Name = "reportAppointmentTypesByMonthButton";
             this.reportAppointmentTypesByMonthButton.Size = new System.Drawing.Size(265, 36);
             this.reportAppointmentTypesByMonthButton.TabIndex = 4;
@@ -415,6 +416,7 @@ namespace SchedulingService.Views
             // 
             // reportGroupBox
             // 
+            this.reportGroupBox.Controls.Add(this.newCustomerThisMonthButton);
             this.reportGroupBox.Controls.Add(this.viewScheduleForUsers);
             this.reportGroupBox.Controls.Add(this.reportAppointmentTypesByMonthButton);
             this.reportGroupBox.Location = new System.Drawing.Point(219, 634);
@@ -426,13 +428,23 @@ namespace SchedulingService.Views
             // 
             // viewScheduleForUsers
             // 
-            this.viewScheduleForUsers.Location = new System.Drawing.Point(506, 38);
+            this.viewScheduleForUsers.Location = new System.Drawing.Point(508, 38);
             this.viewScheduleForUsers.Name = "viewScheduleForUsers";
             this.viewScheduleForUsers.Size = new System.Drawing.Size(265, 36);
             this.viewScheduleForUsers.TabIndex = 5;
             this.viewScheduleForUsers.Text = "View Schedule For Each Consultant";
             this.viewScheduleForUsers.UseVisualStyleBackColor = true;
             this.viewScheduleForUsers.Click += new System.EventHandler(this.viewScheduleForUsers_Click);
+            // 
+            // newCustomerThisMonthButton
+            // 
+            this.newCustomerThisMonthButton.Location = new System.Drawing.Point(1001, 38);
+            this.newCustomerThisMonthButton.Name = "newCustomerThisMonthButton";
+            this.newCustomerThisMonthButton.Size = new System.Drawing.Size(265, 36);
+            this.newCustomerThisMonthButton.TabIndex = 6;
+            this.newCustomerThisMonthButton.Text = "View New Customers This Month";
+            this.newCustomerThisMonthButton.UseVisualStyleBackColor = true;
+            this.newCustomerThisMonthButton.Click += new System.EventHandler(this.newCustomerThisMonthButton_Click);
             // 
             // MainForm
             // 
@@ -498,5 +510,6 @@ namespace SchedulingService.Views
         private System.Windows.Forms.Button reportAppointmentTypesByMonthButton;
         private System.Windows.Forms.GroupBox reportGroupBox;
         private System.Windows.Forms.Button viewScheduleForUsers;
+        private System.Windows.Forms.Button newCustomerThisMonthButton;
     }
 }
