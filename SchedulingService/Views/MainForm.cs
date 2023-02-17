@@ -60,21 +60,49 @@ namespace SchedulingService.Views
 
         private void addCustomerButton_Click(object sender, EventArgs e)
         {
-			CustomerForm customerForm = new CustomerForm();
+			CustomerForm customerForm = new CustomerForm(State: State);
 			customerForm.StartPosition = FormStartPosition.CenterParent;
 			customerForm.ShowDialog();
         }
 
         private void modifyCustomerButton_Click(object sender, EventArgs e)
         {
-			CustomerForm customerForm = new CustomerForm();
+			Customer currentCustomer = (Customer)customerDataGridView.CurrentRow.DataBoundItem;
+
+
+			CustomerForm customerForm = new CustomerForm(State: State, modifyMode: true, currentCustomer: currentCustomer);
 			customerForm.StartPosition = FormStartPosition.CenterParent;
 			customerForm.ShowDialog();
 		}
 
         private void deleteCustomerButton_Click(object sender, EventArgs e)
         {
-			//get current row's customer and remove from DB AND Sync State!
+
+			Customer currentCustomer = (Customer)customerDataGridView.CurrentRow.DataBoundItem;
+			//check if customer id is in use by any appointments first, if not delete
+			List<string> targetsAppointmentIds = new List<string>();
+
+			foreach (Appointment appointment in State.AllUsersAppointments)
+			{ 
+				if (appointment.customerId == currentCustomer.customerId)
+				{
+					targetsAppointmentIds.Add(appointment.appointmentId.ToString());
+				}
+			}
+
+            if (targetsAppointmentIds.Count != 0)
+            {
+				string msgString = $"Unable to delete {currentCustomer.customerName} because they have appointments scheduled \n Appointment IDs: ";
+				//lambda to shorten expression and make building string easier
+				targetsAppointmentIds.ForEach(id => msgString += $" {id} " );
+				MessageBox.Show(msgString);
+            }
+            else
+            {
+				State.deleteCustomer(currentCustomer);
+			}
+			
+			
 		}
 
         private void addAppointmentMonthButton_Click(object sender, EventArgs e)

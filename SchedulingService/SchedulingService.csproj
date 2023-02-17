@@ -100,9 +100,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppState.cs" />
     <Compile Include="Models\AuthState.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\MasterSchedule.cs" />
     <Compile Include="Models\NumberOfAppointmentReport.cs" />

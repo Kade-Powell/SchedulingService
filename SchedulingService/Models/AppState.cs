@@ -191,7 +191,8 @@ namespace SchedulingService.Models
                 }
             }
             //increment to make nextCustomerId
-            return highestId++;
+            highestId += 1;
+            return highestId;
         }
         public int nextAppointmentId()
         {
@@ -276,9 +277,68 @@ namespace SchedulingService.Models
             //keep db in sync with local state on success
             loadUserAppointments();
         }
+        public void addCustomer(Customer customer)
+        {
+            //add customer to db and track in state
+            string commandString =
+                $"INSERT INTO `client_schedule`.`customer`" +
+                $" (`customerId`," +
+                $" `customerName`, " +
+                $" `addressId`," +
+                $" `active`," +
+                $" `createDate`," +
+                $" `createdBy`," +
+                $" `lastUpdateBy`)" +
+                $" VALUES" +
+                $" ('{customer.customerId}'," +
+                $" '{customer.customerName}'," +
+                $" '{customer.addressId}'," +
+                $" '{customer.active}'," +
+                $" '{customer.createDate.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
+                $" '{customer.createdBy}', " +
+                $" '{customer.lastUpdateBy}');";
 
-        
-    
+            MySqlConnection c = new MySqlConnection(connectionString);
+            c.Open();
+            MySqlCommand cmd = new MySqlCommand(commandString, c);
+            cmd.ExecuteNonQuery();
+            c.Close();
+            //keep db in sync with local state on success
+            loadCustomers();
+        }
+        public void updateCustomer(Customer customer)
+        {
+            //add customer to db and track in state
+            string commandString =
+                $"UPDATE `client_schedule`.`customer`" +
+                $" SET " +
+                $" `customerName` = '{customer.customerName}', " +
+                $" `addressId` = '{customer.addressId}'," +
+                $" `active` = '{customer.active}'," +
+                $" `lastUpdateBy` = '{customer.lastUpdateBy}'" +
+                $" WHERE `customerId` = '{customer.customerId}';";
+
+            MySqlConnection c = new MySqlConnection(connectionString);
+            c.Open();
+            MySqlCommand cmd = new MySqlCommand(commandString, c);
+            cmd.ExecuteNonQuery();
+            c.Close();
+            //keep db in sync with local state on success
+            loadCustomers();
+        }
+        public void deleteCustomer(Customer customer)
+        {
+            string commandString = $"DELETE FROM `client_schedule`.`customer` WHERE `customerId` = '{customer.customerId}';";
+            MySqlConnection c = new MySqlConnection(connectionString);
+            c.Open();
+            MySqlCommand cmd = new MySqlCommand(commandString, c);
+            int rowsAffected = cmd.ExecuteNonQuery();
+            c.Close();
+            //keep db in sync with local state on success
+            loadCustomers();
+        }
+
+
 
 
     }
