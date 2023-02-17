@@ -14,8 +14,7 @@ namespace SchedulingService.Views
 	public partial class MainForm : Form
 	{
 		public AppState State;
-		private BindingList<Appointment> MonthlyDataSource = new BindingList<Appointment>();
-		private BindingList<Appointment> WeeklyDataSource = new BindingList<Appointment>();
+
 
 		public MainForm(int UserId, string userName)
 		{
@@ -24,9 +23,8 @@ namespace SchedulingService.Views
 			State = new AppState(UserId, userName);
 			appointmentDataGridView.DataSource = State.Appointments;
 			customerDataGridView.DataSource = State.Customers;
-			monthlyCalendarDataGridView.DataSource = MonthlyDataSource;
-			weeklyCalendarDataGridView.DataSource = WeeklyDataSource;
-
+			weeklyCalendarDataGridView.DataSource = State.WeeklyAppointments;
+			monthlyCalendarDataGridView.DataSource = State.MonthlyAppointments;
 			var (hasUrgentMeeting, messages) = State.checkForUrgentAppointments();
 
 			if (hasUrgentMeeting)
@@ -36,43 +34,6 @@ namespace SchedulingService.Views
 					MessageBox.Show(message);
                 }
             }
-		}
-
-        private void weeklyCalendarDataGrid_Selected(object sender, TabControlEventArgs e)
-        {
-			calculateMonthly();
-			calculateWeekly();
-        }
-		private void calculateMonthly()
-        {
-			foreach(Appointment appointment in State.Appointments)
-            {
-				if(appointment.start.Month == DateTime.Now.Month && appointment.start.Year == DateTime.Now.Year)
-                {
-					if (!MonthlyDataSource.Contains(appointment))
-					{
-						MonthlyDataSource.Add(appointment);
-					}
-                }
-
-			}
-			
-		}
-		private void calculateWeekly()
-        {
-			//get current week date range
-			TimeSpan thisWeek = new TimeSpan(0, 0, 0, 0);
-			IEnumerable<DateTime> currentWeek = Util.Daily(thisWeek);
-			foreach (Appointment appointment in State.Appointments)
-			{
-				foreach(DateTime day in currentWeek)
-                {
-					if (appointment.start.Date == day.Date)
-					{
-						if (!WeeklyDataSource.Contains(appointment)) { WeeklyDataSource.Add(appointment); }
-					}
-				}
-			}
 		}
 
         private void addAppointmentButton_Click(object sender, EventArgs e)
@@ -125,14 +86,16 @@ namespace SchedulingService.Views
 
         private void modifyAppointmentMonthButton_Click(object sender, EventArgs e)
         {
-			AppointmentForm appointmentForm = new AppointmentForm(State);
+			Appointment currentAppointment = (Appointment) monthlyCalendarDataGridView.CurrentRow.DataBoundItem;
+			AppointmentForm appointmentForm = new AppointmentForm(State, modifyMode: true, appointment: currentAppointment);
 			appointmentForm.StartPosition = FormStartPosition.CenterParent;
 			appointmentForm.ShowDialog();
 		}
 
         private void deleteAppointmentMonthButton_Click(object sender, EventArgs e)
         {
-			//get current row's customer and remove from DB AND Sync State!
+			Appointment currentAppointment = (Appointment)monthlyCalendarDataGridView.CurrentRow.DataBoundItem;
+			State.deleteAppointment(currentAppointment);
 		}
 
         private void addAppointmentWeekButton_Click(object sender, EventArgs e)
@@ -144,14 +107,15 @@ namespace SchedulingService.Views
 
         private void modifyAppointmentWeekButton_Click(object sender, EventArgs e)
         {
-			AppointmentForm appointmentForm = new AppointmentForm(State);
+			Appointment currentAppointment = (Appointment)weeklyCalendarDataGridView.CurrentRow.DataBoundItem;
+			AppointmentForm appointmentForm = new AppointmentForm(State, modifyMode: true, appointment: currentAppointment);
 			appointmentForm.StartPosition = FormStartPosition.CenterParent;
 			appointmentForm.ShowDialog();
 		}
-
-        private void deleteAppointmentWeekButton_Click(object sender, EventArgs e)
+		private void deleteAppointmentWeekButton_Click(object sender, EventArgs e)
         {
-			//get current row's customer and remove from DB AND Sync State!
+			Appointment currentAppointment = (Appointment)weeklyCalendarDataGridView.CurrentRow.DataBoundItem;
+			State.deleteAppointment(currentAppointment);
 		}
 
         private void closeMain_Click(object sender, EventArgs e)
@@ -161,9 +125,16 @@ namespace SchedulingService.Views
 
         private void reportAppointmentTypesByMonthButton_Click(object sender, EventArgs e)
         {
-			ReportsForm reportsForm = new ReportsForm(State);
+			AppByMonthForm reportsForm = new AppByMonthForm(State);
 			reportsForm.StartPosition = FormStartPosition.CenterParent;
 			reportsForm.ShowDialog();
+		}
+
+        private void viewScheduleForUsers_Click(object sender, EventArgs e)
+        {
+			UserScheduleForm scheduleReport = new UserScheduleForm();
+			scheduleReport.StartPosition = FormStartPosition.CenterParent;
+			scheduleReport.ShowDialog();
 		}
     }
 }

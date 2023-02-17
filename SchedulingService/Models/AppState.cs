@@ -11,6 +11,8 @@ namespace SchedulingService.Models
     public class AppState
     {
         public BindingList<Appointment> Appointments = new BindingList<Appointment>();
+        public BindingList<Appointment> WeeklyAppointments = new BindingList<Appointment>();
+        public BindingList<Appointment> MonthlyAppointments = new BindingList<Appointment>();
         public BindingList<Customer> Customers { get; } = new BindingList<Customer>();
         public int currentUserId { get; set; }
         public string currentUserName { get; set; }
@@ -27,6 +29,8 @@ namespace SchedulingService.Models
         //methods
         public void loadUserAppointments()
         {
+            //reset state
+            Appointments.Clear();
             //get all appointments for current user
             string query = $"SELECT * FROM client_schedule.appointment WHERE userId = {currentUserId}";
             MySqlConnection c = new MySqlConnection(connectionString);
@@ -35,8 +39,7 @@ namespace SchedulingService.Models
             MySqlDataReader rdr = cmd.ExecuteReader();
             if (rdr.HasRows)
             {
-                //reset state
-                Appointments.Clear();
+                
                 while (rdr.Read())
                 {
                     Appointments.Add(new Appointment(
@@ -61,6 +64,36 @@ namespace SchedulingService.Models
             }
             rdr.Close();
             c.Close();
+            calculateMonthly();
+            calculateWeekly();
+        }
+        private void calculateMonthly()
+        {
+            MonthlyAppointments.Clear();
+            foreach (var app in Appointments)
+            {
+                if (app.start.Month == DateTime.Now.Month && app.start.Year == DateTime.Now.Year)
+                {
+                    MonthlyAppointments.Add(app);
+                }
+            }
+        }
+
+        private void calculateWeekly()
+        {
+            WeeklyAppointments.Clear();
+            TimeSpan thisWeek = new TimeSpan(0, 0, 0, 0);
+            IEnumerable<DateTime> currentWeek = Util.Daily(thisWeek);
+            foreach (Appointment appointment in Appointments)
+            {
+                foreach (DateTime day in currentWeek)
+                {
+                    if (appointment.start.Date == day.Date)
+                    {
+                        WeeklyAppointments.Add(appointment);
+                    }
+                }
+            }
         }
         public void loadCustomers()
         {
@@ -228,12 +261,14 @@ namespace SchedulingService.Models
             MySqlConnection c = new MySqlConnection(connectionString);
             c.Open();
             MySqlCommand cmd = new MySqlCommand(commandString, c);
-            cmd.ExecuteNonQuery();
+            int rowsAffected = cmd.ExecuteNonQuery();
             c.Close();
             //keep db in sync with local state on success
             loadUserAppointments();
         }
 
+        
+    
 
 
     }

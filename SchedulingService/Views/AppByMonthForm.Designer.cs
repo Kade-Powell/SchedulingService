@@ -1,7 +1,7 @@
 ﻿
 namespace SchedulingService.Views
 {
-    partial class ReportsForm
+    partial class AppByMonthForm
     {
         /// <summary>
         /// Required designer variable.
@@ -45,13 +45,13 @@ namespace SchedulingService.Views
             this.numberOfAppointmentByMonthTable.TabStop = false;
             this.numberOfAppointmentByMonthTable.Text = "chart1";
             // 
-            // ReportsForm
+            // AppByMonthForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1362, 450);
             this.Controls.Add(this.numberOfAppointmentByMonthTable);
-            this.Name = "ReportsForm";
+            this.Name = "AppByMonthForm";
             this.Text = "ReportsForm";
             ((System.ComponentModel.ISupportInitialize)(this.numberOfAppointmentByMonthTable)).EndInit();
             this.ResumeLayout(false);

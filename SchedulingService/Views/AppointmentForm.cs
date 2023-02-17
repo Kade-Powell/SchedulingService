@@ -26,6 +26,13 @@ namespace SchedulingService.Views
             MainState = State;
             this.modifyMode = modifyMode;
             currentAppointment = appointment;
+
+            if (this.modifyMode) 
+            {
+                appointPageLabel.Text = "Modify Appointment" ;
+                setFormFromAppointment(appointment);
+            } 
+            else { appointPageLabel.Text = "Add Appointment"; }
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -78,6 +85,19 @@ namespace SchedulingService.Views
             }
             
             this.Close();
+        }
+
+        private void setFormFromAppointment(Appointment appointment)
+        {
+            this.customerId.SelectedValue = appointment.customerId;
+            this.title.Text = appointment.title;
+            this.description.Text = appointment.description;
+            this.location.Text = appointment.location;
+            this.type.Text = appointment.type;
+            this.url.Text = appointment.url;
+            this.start.Value = appointment.start;
+            this.end.Value = appointment.end;
+            this.contact.Text = appointment.contact;
         }
     }
 }

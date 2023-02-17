@@ -13,12 +13,12 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SchedulingService.Views
 {
-    public partial class ReportsForm : Form
+    public partial class AppByMonthForm : Form
     {
         public List<NumberOfAppointmentReport> numberOfAppointmentByMonth;
         public SortedList months = new SortedList();
         
-        public ReportsForm(AppState appState)
+        public AppByMonthForm(AppState appState)
         {
             InitializeComponent();
             months.Add(1, "January");

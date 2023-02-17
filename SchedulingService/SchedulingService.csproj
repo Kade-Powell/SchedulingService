@@ -104,7 +104,9 @@
     <Compile Include="Models\AppState.cs" />
     <Compile Include="Models\AuthState.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\MasterSchedule.cs" />
     <Compile Include="Models\NumberOfAppointmentReport.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Views\AppointmentForm.cs">
       <SubType>Form</SubType>
@@ -132,11 +134,17 @@
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReportsForm.cs">
+    <Compile Include="Views\AppByMonthForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ReportsForm.Designer.cs">
-      <DependentUpon>ReportsForm.cs</DependentUpon>
+    <Compile Include="Views\AppByMonthForm.Designer.cs">
+      <DependentUpon>AppByMonthForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserScheduleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UserScheduleForm.Designer.cs">
+      <DependentUpon>UserScheduleForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -159,8 +167,11 @@
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ReportsForm.resx">
-      <DependentUpon>ReportsForm.cs</DependentUpon>
+    <EmbeddedResource Include="Views\AppByMonthForm.resx">
+      <DependentUpon>AppByMonthForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserScheduleForm.resx">
+      <DependentUpon>UserScheduleForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
