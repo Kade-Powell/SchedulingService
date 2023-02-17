@@ -144,6 +144,8 @@ namespace SchedulingService.Views
             // 
             // customerId
             // 
+            this.customerId.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.customerId.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.customerId.FormattingEnabled = true;
             this.customerId.Location = new System.Drawing.Point(403, 148);
             this.customerId.Name = "customerId";

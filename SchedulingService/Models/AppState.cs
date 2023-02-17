@@ -218,15 +218,15 @@ namespace SchedulingService.Models
                 $" `contact`, `type`," +
                 $" `url`, `start`," +
                 $" `end`, `createDate`," +
-                $" `createdBy`, `lastUpdate`, `lastUpdateBy`)" +
+                $" `createdBy`, `lastUpdateBy`)" +
                 $" VALUES" +
                 $" ('{appointment.appointmentId}', '{appointment.customerId}'," +
                 $" '{appointment.userId}', '{appointment.title}'," +
                 $" '{appointment.description}', '{appointment.location}'," +
                 $" '{appointment.contact}', '{appointment.type}'," +
-                $" '{appointment.url}', '{appointment.start:yyyy-MM-dd HH:mm:ss}'," +
-                $" '{appointment.end:yyyy-MM-dd HH:mm:ss}', '{appointment.createDate:yyyy-MM-dd HH:mm:ss}'," +
-                $" '{appointment.createdBy}', '{appointment.lastUpdate:yyyy-MM-dd HH:mm:ss}', '{appointment.lastUpdateBy}');";
+                $" '{appointment.url}', '{appointment.start.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
+                $" '{appointment.end.ToUniversalTime():yyyy-MM-dd HH:mm:ss}', '{appointment.createDate.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
+                $" '{appointment.createdBy}', '{appointment.lastUpdateBy}');";
 
 
             
@@ -252,9 +252,8 @@ namespace SchedulingService.Models
                 $" `contact` = '{appointment.contact}'," +
                 $" `type`= '{appointment.type}'," +
                 $" `url` = '{appointment.url}'," +
-                $" `start` = '{appointment.start:yyyy-MM-dd HH:mm:ss}'," +
-                $" `end` = '{appointment.end:yyyy-MM-dd HH:mm:ss}'," +
-                $" `lastUpdate` = '{appointment.lastUpdate:yyyy-MM-dd HH:mm:ss}'," +
+                $" `start` = '{appointment.start.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
+                $" `end` = '{appointment.end.ToUniversalTime():yyyy-MM-dd HH:mm:ss}'," +
                 $" `lastUpdateBy` = '{appointment.lastUpdateBy}'" +
                 $" WHERE `appointmentId` = '{appointment.appointmentId}';";
 

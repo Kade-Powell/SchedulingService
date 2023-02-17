@@ -20,7 +20,7 @@ namespace SchedulingService.Models
         public DateTime end { get; set; }
         public DateTime createDate { get; set; }
         public string createdBy { get; set; }
-        public DateTime lastUpdate { get; set; }
+        public DateTime? lastUpdate { get; set; }
         public string lastUpdateBy { get; set; }
 
         public Appointment(
@@ -37,8 +37,8 @@ namespace SchedulingService.Models
             DateTime end,
             DateTime createDate,
             string createdBy,
-            DateTime lastUpdate,
-            string lastUpdateBy
+            string lastUpdateBy,
+            DateTime? lastUpdate = null
             )
         {
             this.appointmentId = appointmentId;
@@ -54,7 +54,7 @@ namespace SchedulingService.Models
             this.end = end;
             this.createDate = createDate;
             this.createdBy = createdBy;
-            this.lastUpdate = lastUpdate;
+            this.lastUpdate = lastUpdate == null ? null : lastUpdate;
             this.lastUpdateBy = lastUpdateBy;
         }
     }

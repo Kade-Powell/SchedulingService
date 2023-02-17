@@ -42,8 +42,81 @@ namespace SchedulingService.Views
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-           
+            /////// STARTS VALIDATION RULES
+            /////check customer is an actual customer
+            if (!(MainState.Customers.Contains(customerId.SelectedItem)))
+            {
+                MessageBox.Show("Please select a customer from the drop down.");
+                return;
+            }
 
+            //check for outside of business hours
+            TimeSpan businessHoursstart = TimeSpan.Parse("08:00"); // 8am
+            TimeSpan BusinessHoursEnd = TimeSpan.Parse("17:00");   // 5pm
+            TimeSpan startTime = start.Value.TimeOfDay;
+            TimeSpan endTime = end.Value.TimeOfDay;
+
+            if(start.Value.Date != end.Value.Date)
+            {
+                //start and end are not in the same day
+                MessageBox.Show("Start and End Times Must Be In The Same Day");
+                return;
+            }
+            if (startTime <= endTime)
+            {
+                // start and stop times are in the same day
+                if (!(startTime >= businessHoursstart && startTime <= BusinessHoursEnd))
+                {
+                    // startTime is NOT between bus. hours start and stop
+                    MessageBox.Show("Start time must be between 8:00am and 5:00pm");
+                    return;
+                }
+                if (!(endTime >= businessHoursstart && endTime <= BusinessHoursEnd))
+                {
+                    // endTime is NOT between bus. hours start and stop
+                    MessageBox.Show("End time must be between 8:00am and 5:00pm");
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Start time should be less than the end time!");
+                return;
+            }
+
+            //check is user has overlapping appointments
+            foreach(Appointment appointment in MainState.Appointments)
+            {
+                bool overlap = start.Value < appointment.end && appointment.start < end.Value;
+                if (overlap)
+                {
+                    //chec kif overlap is from current appointment
+                    if(!(appointment.appointmentId == currentAppointment.appointmentId))
+                    {
+                        MessageBox.Show($"You have overlapping appointment times with appointment ID {appointment.appointmentId}");
+                        return;
+                    }
+                   
+                }
+            }
+            //check the start and stop times are greater than time now
+            if(start.Value < DateTime.Now)
+            {
+                MessageBox.Show("Appointments can't be scheduled for earlier times than right now");
+                return;
+            }
+            if (end.Value < DateTime.Now)
+            {
+                MessageBox.Show("Appointments can't be scheduled for earlier times than right now");
+                return;
+            }
+            if(title.Text.Length < 1) { MessageBox.Show("Please Enter An Appointment Title"); return; }
+            if (description.Text.Length < 1) { MessageBox.Show("Please Enter An Appointment Description"); return; }
+            if (location.Text.Length < 1) { MessageBox.Show("Please Enter An Appointment Location"); return; }
+            if (type.Text.Length < 1) { MessageBox.Show("Please Enter An Appointment Type"); return; }
+            if (url.Text.Length < 1) { MessageBox.Show("Please Enter An Appointment URL or N/A if none"); return; }
+            if (contact.Text.Length < 1) { MessageBox.Show("Please Enter An Appointment Contact"); return; }
+            /////// ENDS VALIDATION RULES
             if (modifyMode)
             {
                 currentAppointment.customerId = Convert.ToInt32(this.customerId.SelectedValue);
@@ -54,9 +127,8 @@ namespace SchedulingService.Views
                 currentAppointment.contact = this.contact.Text;
                 currentAppointment.type = this.type.Text;
                 currentAppointment.url = this.url.Text;
-                currentAppointment.start = this.start.Value.ToUniversalTime();
-                currentAppointment.end = this.end.Value.ToUniversalTime();
-                currentAppointment.lastUpdate = DateTime.Now.ToUniversalTime();
+                currentAppointment.start = this.start.Value;
+                currentAppointment.end = this.end.Value;
                 currentAppointment.lastUpdateBy = MainState.currentUserName;
 
                 MainState.updateAppointment(currentAppointment);
@@ -74,11 +146,11 @@ namespace SchedulingService.Views
                    contact: this.contact.Text,
                    type: this.type.Text,
                    url: this.url.Text,
-                   start: this.start.Value.ToUniversalTime(),
-                   end: this.end.Value.ToUniversalTime(),
-                   createDate: DateTime.Now.Date.ToUniversalTime(),
+                   start: this.start.Value,
+                   end: this.end.Value,
+                   createDate: DateTime.Now.Date,
                    createdBy: MainState.currentUserName,
-                   lastUpdate: DateTime.Now.ToUniversalTime(),
+                  
                    lastUpdateBy: MainState.currentUserName
                    );
                 MainState.addAppointment(appointment);
