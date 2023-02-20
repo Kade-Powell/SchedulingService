@@ -54,7 +54,7 @@ namespace SchedulingService
         {
             if (FindUser(username.Text, password.Text) != 0)
             {
-                AuthState.writeUserLog(AuthState.getCurrentUserId());
+                AuthState.writeUserLog(this.username.Text, true);
                 Program.SetMainForm(new MainForm(AuthState.getCurrentUserId(), this.username.Text));
                 Program.ShowMainForm();
 
@@ -64,6 +64,7 @@ namespace SchedulingService
             {
                 MessageBox.Show(errorMessage);
                 password.Text = "";
+                AuthState.writeUserLog(this.username.Text, false);
             }
         }
 
